@@ -10,7 +10,11 @@
 </head>
 <body class="antialiased">
 <article>
-   <?= $post ?>
+    <h1> <?= $post->title ?> </h1>
+
+    <div>
+         <?= $post->body ?>
+    </div>
 </article>
 
 <a href="/">back to homepage</a>

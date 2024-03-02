@@ -21,14 +21,14 @@ class Post
     /**
      * @param $title
      * @param $excerpt
-     * @param $data
+     * @param $date
      * @param $body
      */
-    public function __construct($title, $excerpt, $data, $body, $slug)
+    public function __construct($title, $excerpt, $date, $body, $slug)
     {
         $this->title = $title;
         $this->excerpt = $excerpt;
-        $this->data = $data;
+        $this->date = $date;
         $this->body = $body;
         $this->slug = $slug;
     }
@@ -36,18 +36,21 @@ class Post
 
     public static function all()
     {
-        return collect(File::files(resource_path("posts/")))
-            ->map(function ($file) {
-                return YamlFrontMatter::parseFile($file);
-            })->map(function ($document) {
-                return new Post(
-                    $document->title,
-                    $document->excerpt,
-                    $document->data,
-                    $document->body(),
-                    $document->slug
-                );
-            });
+        return cache()->rememberForever('post.all', function(){
+            return collect(File::files(resource_path("posts/")))
+                ->map(function ($file) {
+                    return YamlFrontMatter::parseFile($file);
+                })->map(function ($document) {
+                    return new Post(
+                        $document->title,
+                        $document->excerpt,
+                        $document->date,
+                        $document->body(),
+                        $document->slug
+                    );
+                })->sortByDesc('date') ;
+        });
+
     }
 
     public static function find($slug)

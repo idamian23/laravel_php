@@ -12,4 +12,12 @@ class Post extends Model
     protected $fillable = ["title" , "excerpt" , "body"];
 
     //protected $guarded = [] ; -> opposite of $fillable;
+
+    public function category()
+    {
+
+        return $this->belongsTo(Category::class);
+
+    }
+
 }

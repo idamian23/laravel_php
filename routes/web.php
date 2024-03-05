@@ -21,7 +21,7 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 //});
 
 Route::get('/', function () {
-   $posts = Post::all();
+    $posts = Post::all();
 
     return view('posts', [
         'posts' => $posts
@@ -33,7 +33,7 @@ Route::get('posts/{post}', function ($slug) {
 
 
     return view('post', [
-        'post' => Post::find($slug)
+        'post' => Post::findOrFail($slug)
     ]);
 
-})->where('post', '[A-z_\-]+');
+});

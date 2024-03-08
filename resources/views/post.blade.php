@@ -4,7 +4,7 @@
         <h1> {{ $post->title }} </h1>
 
         <p>
-            by the  Author <a href="#"> John Snow </a> in
+            by the  Author <a href="#"> {{$post->user->name}} </a> in
             <a href="categories/{{$post->category->slug}}">
                 {{$post->category->name}}
             </a>

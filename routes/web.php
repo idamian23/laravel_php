@@ -36,7 +36,7 @@ Route::get('categories/{category:slug}', function (Category $category) {
 });
 
 Route::get('authors/{author:username}', function (User $author) {
-    //dd($author);
+    //dd($author->username);
 
     return view('posts', ['posts' => $author->posts]);
 });

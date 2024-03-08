@@ -11,6 +11,8 @@ class Post extends Model
 
     protected $fillable = ["title" , "excerpt" , "body"];
 
+    protected $with = ["author" , "category"];
+
     //protected $guarded = [] ; -> opposite of $fillable;
 
     public function category()
@@ -20,9 +22,9 @@ class Post extends Model
 
     }
 
-    public function user()
+    public function author()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
 }

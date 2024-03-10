@@ -13,6 +13,16 @@ class Post extends Model
 
     protected $with = ["author" , "category"];
 
+
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['search'] ?? false, fn($query, $search) =>
+        $query
+            ->where('title', 'like', '%' . $search . '%')
+            ->orWhere('body', 'like', '%' . $search . '%'));
+    }
+
+
     //protected $guarded = [] ; -> opposite of $fillable;
 
     public function category()
